@@ -6,7 +6,7 @@ import pandas as pd
 def process_directories(base_path, output_file):
     with open(output_file, 'w') as out_file:
         for root, dirs, files in os.walk(base_path):
-            if root.endswith('_noise'):  # Process only directories ending with '_noise'
+            # if root.endswith('_noise'):  # Process only directories ending with '_noise'
                 label_path = os.path.join(root, 'label.csv')
 
                 if os.path.isfile(label_path):
@@ -23,7 +23,7 @@ def process_directories(base_path, output_file):
                             label_value = 'not eligible'
 
                         for file in files:
-                            if file.startswith('mfcc_'):
+                            if file.startswith('mfcc'):
                                 mfcc_path = os.path.join(root, file)
                                 # Check if MFCC file exists
                                 if os.path.isfile(mfcc_path):
@@ -41,11 +41,11 @@ def process_directories(base_path, output_file):
                                     out_file.write(f"{mfcc_path},{label_value}\n")
                     else:
                         print(f"Warning: Label column not found or empty in {label_path}")
-                else:
-                    print(f"Warning: Missing label.csv in {root}")
-                    # Delete the folder if label.csv is missing
-                    shutil.rmtree(root)
-                    print(f"Folder deleted: {root}")
+                # else:
+                #     print(f"Warning: Missing label.csv in {root}")
+                #     # Delete the folder if label.csv is missing
+                #     shutil.rmtree(root)
+                #     print(f"Folder deleted: {root}")
 
 
 base_path = '../FINISHED_V6'
